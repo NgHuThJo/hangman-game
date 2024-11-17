@@ -1,3 +1,4 @@
-export { default as landing_page_desktop } from "./landing-page-desktop.webp";
-export { default as landing_page_mobile } from "./landing-page-mobile.webp";
-export { default as landing_page_tablet } from "./landing-page-tablet.webp";
+export { default as background_desktop } from "./background-desktop.svg";
+export { default as background_mobile } from "./background-mobile.svg";
+export { default as background_tablet } from "./background-tablet.svg";
+export { default as logo } from "./logo.svg";

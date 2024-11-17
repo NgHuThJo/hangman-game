@@ -1,11 +1,6 @@
 import { PropsWithChildren } from "react";
-import { AuthContextProvider } from "./auth-context.js";
-import { WebSocketContextProvider } from "./websocket-context.js";
+import { WordContextProvider } from "#frontend/providers/word-context";
 
 export function Context({ children }: PropsWithChildren) {
-  return (
-    <AuthContextProvider>
-      <WebSocketContextProvider>{children}</WebSocketContextProvider>
-    </AuthContextProvider>
-  );
+  return <WordContextProvider>{children}</WordContextProvider>;
 }

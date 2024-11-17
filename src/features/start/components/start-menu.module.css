@@ -1,0 +1,27 @@
+.container {
+  display: grid;
+  justify-items: center;
+  place-self: center;
+  gap: 2rem;
+  padding: 2rem;
+  margin: 2rem;
+  background-image: linear-gradient(
+    rgb(52, 74, 186, 0.9),
+    rgb(0, 20, 121, 0.9)
+  );
+}
+
+.play-button {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  width: 8rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: rgb(var(--blue));
+}
+
+.how-to-play-button {
+  padding: 1rem;
+  background-color: rgb(var(--blue));
+}

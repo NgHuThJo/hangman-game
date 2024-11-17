@@ -1,0 +1,54 @@
+.container {
+  padding: 4rem 2rem;
+
+  a {
+    width: clamp(3rem, 2.5rem + 2.5vw, 4rem);
+    aspect-ratio: 1;
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: rgb(var(--dark-pink));
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  h1 {
+    color: rgb(var(--lighter-blue));
+  }
+}
+
+.rules {
+  display: grid;
+  gap: 1rem;
+  counter-reset: rules;
+
+  section {
+    display: grid;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: rgb(24, 26, 27);
+  }
+
+  h2 {
+    display: flex;
+    gap: 1rem;
+    color: rgb(var(--dark-navy));
+
+    &:before {
+      counter-increment: rules;
+      content: counter(rules);
+      color: rgb(var(--blue));
+    }
+  }
+
+  p {
+    color: rgb(var(--lavender));
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
