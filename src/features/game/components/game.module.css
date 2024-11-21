@@ -1,0 +1,63 @@
+.menu {
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  h1 {
+    margin-right: auto;
+  }
+}
+
+.health {
+  width: clamp(5rem, 2.5rem + 12.5vw, 10rem);
+  height: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  background-color: white;
+
+  > div {
+    height: 100%;
+    border-radius: 1rem;
+    background-color: rgb(var(--dark-navy));
+  }
+}
+
+.hidden-letters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 4rem), 1fr));
+  gap: 1rem;
+
+  > * {
+    width: 4rem;
+    aspect-ratio: 1;
+    background-color: rgb(var(--light-blue));
+  }
+}
+
+.letters {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+
+  > * {
+    transition: opacity var(--transition-duration);
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    &:disabled {
+      opacity: 0.2;
+    }
+  }
+}
+
+.letter-button {
+  padding: 1.5rem;
+  background-color: rgb(var(--blue));
+}
