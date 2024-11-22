@@ -5,7 +5,8 @@ export type WordContextType = {
   currentWord: string;
 } | null;
 export type WordContextApiType = {
-  chooseWord: () => void;
+  chooseWord: () => string;
+  chooseCategory: (category: string) => void;
 } | null;
 
 const WordContext = createContext<WordContextType>(null);
@@ -16,10 +17,26 @@ export const useWordContext = () =>
 export const useWordContextApi = () =>
   useContextWrapper(WordContextApi, "WordContextApi is null");
 
-const word = "sentence with words";
+const categoryList: {
+  [key: string]: string[];
+} = {
+  movie: ["Inception", "Titanic", "Gladiator", "Avatar", "Frozen"],
+  tvShow: [
+    "Friends",
+    "Breaking Bad",
+    "The Office",
+    "Game of Thrones",
+    "Stranger Things",
+  ],
+  countries: ["Argentina", "Australia", "Belgium", "Canada", "Denmark"],
+  capitalCity: ["Paris", "Tokyo", "Berlin", "Ottawa", "Cairo"],
+  animal: ["Elephant", "Kangaroo", "Giraffe", "Penguin", "Dolphin"],
+  sport: ["Football", "Basketball", "Cricket", "Tennis", "Badminton"],
+};
 
 export function WordContextProvider({ children }: PropsWithChildren) {
-  const [currentWord, setCurrentWord] = useState(word);
+  const [currentCategory, setCurrentCategory] = useState("");
+  const [currentWord, setCurrentWord] = useState("");
 
   const value = useMemo(() => {
     return { currentWord };
@@ -27,11 +44,23 @@ export function WordContextProvider({ children }: PropsWithChildren) {
 
   const api = useMemo(() => {
     const chooseWord = () => {
-      setCurrentWord(word);
+      const currentCategoryList = categoryList[currentCategory];
+      const newWord =
+        currentCategoryList[
+          Math.floor(Math.random() * currentCategoryList.length)
+        ].toLocaleLowerCase();
+
+      setCurrentWord(newWord);
+
+      return newWord;
     };
 
-    return { chooseWord };
-  }, []);
+    const chooseCategory = (category: string) => {
+      setCurrentCategory(category);
+    };
+
+    return { chooseCategory, chooseWord };
+  }, [currentCategory]);
 
   return (
     <WordContextApi.Provider value={api}>

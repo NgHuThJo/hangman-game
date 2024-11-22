@@ -3,7 +3,7 @@ import { AppRoot } from "#frontend/app/root";
 import { ErrorRoute } from "#frontend/app/routes/error.js";
 import { NotFoundRoute } from "#frontend/app/routes/not-found.js";
 import { Categories } from "#frontend/features/categories/categories";
-import { Game } from "#frontend/features/game/game";
+import { Game } from "#frontend/features/game/components/game";
 import { Instructions } from "#frontend/features/instructions/components/instructions";
 import { StartMenu } from "#frontend/features/start/components/start-menu";
 

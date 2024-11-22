@@ -1,6 +1,9 @@
-import { MouseEvent, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { useWordContext } from "#frontend/providers/word-context";
+import { MouseEvent, useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useWordContext,
+  useWordContextApi,
+} from "#frontend/providers/word-context";
 import { Dialog } from "#frontend/components/ui/dialog/dialog";
 import { findAllOccurencesOfLetter } from "#frontend/utils/string";
 import styles from "./game.module.css";
@@ -8,15 +11,21 @@ import { icon_menu } from "#frontend/assets/resources/icons";
 import { icon_heart } from "#frontend/assets/resources/icons";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-const maxHealth = 8;
+const maxHealth = 17;
+let guessedLettersCount = 0;
 
 export function Game() {
+  const navigate = useNavigate();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const { currentWord } = useWordContext();
-  const [guessedLetters, setGuessedLetters] = useState<string[]>(
-    new Array(currentWord.length).fill(""),
-  );
+  const { chooseWord } = useWordContextApi();
+  const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [currentHealth, setCurrentHealth] = useState(maxHealth);
+  const [hasWon, setHasWon] = useState(false);
+
+  useEffect(() => {
+    setGuessedLetters(new Array(chooseWord().length).fill(""));
+  }, [chooseWord]);
 
   const handleChosenLetter = (event: MouseEvent<HTMLButtonElement>) => {
     const button = event.currentTarget;
@@ -46,15 +55,31 @@ export function Game() {
 
       return prevCopy;
     });
+
+    if (guessedLettersCount + indexList.length === guessedLetters.length) {
+      setHasWon(true);
+      guessedLettersCount = 0;
+      dialogRef.current?.showModal();
+
+      return;
+    }
+
+    guessedLettersCount += indexList.length;
+  };
+
+  const handleGameRestart = () => {
+    return navigate("/game");
   };
 
   return (
-    <main>
+    <div>
       <Dialog ref={dialogRef}>
-        <h2>You Lose</h2>
-        <button>Play Again!</button>
-        <button>New Category</button>
-        <button>Quit Game</button>
+        <h2>You {`${hasWon ? "Win" : "Lose"}`}</h2>
+        <button type="button" onClick={handleGameRestart}>
+          Play Again!
+        </button>
+        <Link to="/categories">New Category</Link>
+        <Link to="/">Quit Game</Link>
       </Dialog>
       <section className={styles.header}>
         <Link to="/">
@@ -83,6 +108,6 @@ export function Game() {
           </button>
         ))}
       </div>
-    </main>
+    </div>
   );
 }
