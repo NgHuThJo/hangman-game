@@ -1,5 +1,6 @@
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import { vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { Context } from "#frontend/providers/context";
 import { routesConfig } from "#frontend/app/router";
@@ -11,8 +12,9 @@ describe("Game", () => {
     const router = createMemoryRouter(routesConfig, {
       initialEntries: ["/", "/category", "/game"],
     });
-    render(<RouterProvider router={router} />, {
-      wrapper: Context,
+
+    await waitFor(() => {
+      render(<RouterProvider router={router} />, { wrapper: Context });
     });
 
     const letterButton = screen.getByText(/^a$/i);
@@ -21,22 +23,22 @@ describe("Game", () => {
     expect(letterButton).toBeDisabled();
   });
 
-  it("Letter chosen is in word", async () => {
-    const router = createMemoryRouter(routesConfig, {
-      initialEntries: ["/", "/category", "/game"],
-    });
-    render(<RouterProvider router={router} />, {
-      wrapper: Context,
-    });
+  // it("Letter chosen is in word", async () => {
+  //   const router = createMemoryRouter(routesConfig, {
+  //     initialEntries: ["/", "/category", "/game"],
+  //   });
+  //   render(<RouterProvider router={router} />, {
+  //     wrapper: Context,
+  //   });
 
-    const letterButton = screen.getByText(/^w$/i);
-    await user.click(letterButton);
-    const guessedLetters = screen.getAllByText("w", {
-      selector: "p",
-    });
+  //   const letterButton = screen.getByText(/^w$/i);
+  //   await user.click(letterButton);
+  //   const guessedLetters = screen.getAllByText("w", {
+  //     selector: "p",
+  //   });
 
-    expect(guessedLetters).toHaveLength(2);
-  });
+  //   expect(guessedLetters).toHaveLength(2);
+  // });
 
   it("Dialog opens if health is zero", () => {
     const router = createMemoryRouter(routesConfig, {

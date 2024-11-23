@@ -11,8 +11,13 @@ import { icon_menu } from "#frontend/assets/resources/icons";
 import { icon_heart } from "#frontend/assets/resources/icons";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-const maxHealth = 17;
+const maxHealth = 2;
 let guessedLettersCount = 0;
+enum GameStateEnum {
+  pending,
+  lose,
+  win,
+}
 
 export function Game() {
   const navigate = useNavigate();
@@ -21,7 +26,9 @@ export function Game() {
   const { chooseWord } = useWordContextApi();
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [currentHealth, setCurrentHealth] = useState(maxHealth);
-  const [hasWon, setHasWon] = useState(false);
+  const [gameState, setGameState] = useState<GameStateEnum>(
+    GameStateEnum.pending,
+  );
 
   useEffect(() => {
     setGuessedLetters(new Array(chooseWord().length).fill(""));
@@ -57,7 +64,7 @@ export function Game() {
     });
 
     if (guessedLettersCount + indexList.length === guessedLetters.length) {
-      setHasWon(true);
+      setGameState(GameStateEnum.win);
       guessedLettersCount = 0;
       dialogRef.current?.showModal();
 
@@ -73,14 +80,16 @@ export function Game() {
 
   return (
     <div>
-      <Dialog ref={dialogRef}>
-        <h2>You {`${hasWon ? "Win" : "Lose"}`}</h2>
-        <button type="button" onClick={handleGameRestart}>
-          Play Again!
-        </button>
-        <Link to="/categories">New Category</Link>
-        <Link to="/">Quit Game</Link>
-      </Dialog>
+      {gameState !== GameStateEnum.pending && (
+        <Dialog ref={dialogRef}>
+          <h2>You {`${gameState === GameStateEnum.win ? "Win" : "Lose"}`}</h2>
+          <button type="button" onClick={handleGameRestart}>
+            Play Again!
+          </button>
+          <Link to="/categories">New Category</Link>
+          <Link to="/">Quit Game</Link>
+        </Dialog>
+      )}
       <section className={styles.header}>
         <Link to="/">
           <img src={icon_menu} alt="" />

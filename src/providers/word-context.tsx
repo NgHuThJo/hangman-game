@@ -35,7 +35,7 @@ const categoryList: {
 };
 
 export function WordContextProvider({ children }: PropsWithChildren) {
-  const [currentCategory, setCurrentCategory] = useState("");
+  const [currentCategory, setCurrentCategory] = useState("animal");
   const [currentWord, setCurrentWord] = useState("");
 
   const value = useMemo(() => {
@@ -50,6 +50,7 @@ export function WordContextProvider({ children }: PropsWithChildren) {
           Math.floor(Math.random() * currentCategoryList.length)
         ].toLocaleLowerCase();
 
+      console.log(newWord);
       setCurrentWord(newWord);
 
       return newWord;
