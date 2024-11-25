@@ -37,7 +37,7 @@ export function Categories() {
   };
 
   return (
-    <main>
+    <div className={styles.container}>
       <section className={styles.top}>
         <button
           type="button"
@@ -61,6 +61,6 @@ export function Categories() {
           </button>
         ))}
       </section>
-    </main>
+    </div>
   );
 }

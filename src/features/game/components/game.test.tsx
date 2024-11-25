@@ -1,9 +1,25 @@
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import { render, screen, waitFor } from "@testing-library/react";
-import { vi } from "vitest";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import { Context } from "#frontend/providers/context";
 import { routesConfig } from "#frontend/app/router";
+import path from "path";
+
+vi.doMock("#frontend/providers/word-context", () => {
+  console.log(path.resolve(__dirname, "../../../providers/word-context"));
+
+  return {
+    ...vi.importActual("../../../providers/word-context"),
+    useWordContext: () => ({
+      currentWord: "mockwordmockword",
+    }),
+    useWordContextApi: () => ({
+      chooseWord: () => "mockwordmockword",
+      chooseCategory: () => {},
+    }),
+  };
+});
 
 describe("Game", () => {
   const user = userEvent.setup();
@@ -40,7 +56,7 @@ describe("Game", () => {
   //   expect(guessedLetters).toHaveLength(2);
   // });
 
-  it("Dialog opens if health is zero", () => {
+  it("Dialog opens if health is zero", async () => {
     const router = createMemoryRouter(routesConfig, {
       initialEntries: ["/", "/category", "/game"],
     });
@@ -48,14 +64,16 @@ describe("Game", () => {
       wrapper: Context,
     });
 
-    const letters = "abcdefgh";
+    const letters = "yz";
 
     for (const letter of letters) {
       const letterButton = screen.getByText(new RegExp(`^${letter}$`, "i"));
       user.click(letterButton);
     }
 
-    expect(screen.getByText(/^you lose$/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/^you lose$/i)).toBeInTheDocument();
+    });
   });
 
   it("Win screen shows if word is guessed", () => {

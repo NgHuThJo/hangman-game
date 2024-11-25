@@ -11,7 +11,7 @@ export function Instructions() {
         </Link>
         <h1>How to play</h1>
       </header>
-      <main className={styles.rules}>
+      <div className={styles.rules}>
         <section>
           <h2>Choose a category</h2>
           <p>
@@ -36,7 +36,7 @@ export function Instructions() {
             lose.
           </p>
         </section>
-      </main>
+      </div>
     </div>
   );
 }

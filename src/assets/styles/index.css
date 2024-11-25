@@ -1,3 +1,18 @@
+/* Font families */
+@font-face {
+  font-family: "MouseMemoirs";
+
+  src: url("../resources/fonts/MouseMemoirs-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "NotoSerifJP";
+
+  src: url("../resources/fonts/NotoSerifJP-Regular.otf");
+  font-weight: 400;
+}
+
 /* custom properties */
 :root {
   /* box model */
@@ -26,7 +41,8 @@
   --macro-grid-gap: 2rem;
 
   /* typography */
-  --ff-root: system-ui, sans-serif;
+  --ff-root: "MouseMemoirs", sans-serif;
+  --ff-letter: "NotoSerifJP", sans-serif;
 
   --fw-button: 600;
   --fw-form: 500;
@@ -41,7 +57,7 @@
   --fs-h4: clamp(1.125rem, 0.6875rem + 2.1875vw, 2rem);
   --fs-label: 0.8125rem;
   --fs-profile: 1.125rem;
-  --fs-root: 0.9375rem;
+  --fs-root: 1.25rem;
 
   /* colors */
   --dark-navy: 38, 22, 118;
@@ -52,6 +68,7 @@
   --lavender: 136, 125, 192;
   --pink: 254, 113, 254;
   --dark-pink: 198, 66, 251;
+  --white: 255, 255, 255, 255;
 
   /* transition */
   --transition-duration: 0.5s;

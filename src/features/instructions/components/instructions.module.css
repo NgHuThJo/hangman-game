@@ -1,5 +1,11 @@
 .container {
+  max-width: 60rem;
   padding: 4rem 2rem;
+  margin-inline: auto;
+
+  > * + * {
+    margin-top: clamp(3rem, 1.5rem + 7.5vw, 6rem);
+  }
 
   a {
     width: clamp(3rem, 2.5rem + 2.5vw, 4rem);
@@ -13,28 +19,33 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1rem;
 
   h1 {
+    text-shadow: 0.125rem 0.125rem 2rem rgb(var(--blue));
+    font-size: var(--fs-h1);
     color: rgb(var(--lighter-blue));
   }
 }
 
 .rules {
   display: grid;
-  gap: 1rem;
+  gap: 2rem;
   counter-reset: rules;
 
   section {
     display: grid;
     gap: 1rem;
     padding: 2rem;
-    background-color: rgb(24, 26, 27);
+    border-radius: 1rem;
+    background-color: rgb(var(--white));
   }
 
   h2 {
     display: flex;
     gap: 1rem;
+    font-size: var(--fs-h2);
     color: rgb(var(--dark-navy));
 
     &:before {
@@ -50,5 +61,19 @@
 
   @media screen and (min-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: [heading-start] auto [heading-end text-start] 1fr [text-end];
+
+    section {
+      grid-template-rows: subgrid;
+      grid-row: 1 / -1;
+    }
+
+    h2 {
+      grid-row: heading;
+    }
+
+    p {
+      grid-row: text;
+    }
   }
 }
