@@ -52,6 +52,7 @@ export function Game() {
       setCurrentHealth((prev) => {
         if (prev === 1) {
           setGameState(GameStateEnum.lose);
+          guessedLettersCount = 0;
         }
 
         return prev - 1;

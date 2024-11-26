@@ -50,7 +50,6 @@ export function WordContextProvider({ children }: PropsWithChildren) {
           Math.floor(Math.random() * currentCategoryList.length)
         ].toLocaleLowerCase();
 
-      console.log(newWord);
       setCurrentWord(newWord);
 
       return newWord;
