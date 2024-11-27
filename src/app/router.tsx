@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import { AppRoot } from "#frontend/app/root";
 import { ErrorRoute } from "#frontend/app/routes/error.js";
 import { NotFoundRoute } from "#frontend/app/routes/not-found.js";
@@ -42,7 +42,7 @@ export const routesConfig = [
 ];
 
 export function Router() {
-  const router = createBrowserRouter(routesConfig);
+  const router = createHashRouter(routesConfig);
 
   return <RouterProvider router={router} />;
 }

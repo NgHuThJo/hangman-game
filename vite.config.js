@@ -11,6 +11,7 @@ export default defineConfig({
       "#publicAssets": path.resolve(__dirname, "public"),
     },
   },
+  base: "/hangman-game/",
   test: {
     environment: "jsdom",
     globals: true,
