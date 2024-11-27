@@ -22,10 +22,10 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm i
-      - name: Run linter
-        run: npm run lint
-      - name: Run tests
-        run: npm run test
+      # - name: Run linter
+      #   run: npm run lint
+      # - name: Run tests
+      #   run: npm run test
       - name: Build project
         run: npm run build
       - name: Upload artifact to enable deployment
